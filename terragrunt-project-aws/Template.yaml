@@ -1,0 +1,90 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: terragrunt-project-aws
+  title: IaC Terragrunt AWS
+  description: Estudo de backstage template
+spec:
+  owner: sandesvitor-org/backstage
+  type: service
+  parameters:
+    - title: Informações de projeto
+      required: [name, title, description]
+      properties:
+        name:
+          title: Nome
+          type: string
+          description: Nome único
+          ui:autofocus: true
+        title:
+          title: Título
+          type: string
+          description: Título para README.md
+        terraform_version_constraint:
+          title: TF version
+          type: string
+          description: Constrain de versão para Terraform
+        terragrunt_version_constraint:
+          title: TG version
+          type: string
+          description: Constrain de versão para Terragrunt
+        description:
+          title: Descrição
+          type: string
+          description: Breve descrição do projeto
+          ui:options:
+            row: 5
+        owner:
+          title: Owner
+          type: string
+          description: Equipe responsável
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds: [Group]
+    - title: Informações do repositório
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Local do repositório
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          name: ${{ parameters.name }}
+          title: ${{ parameters.title }}
+          description: ${{ parameters.description }}
+          terraform_version_constraint: ${{ parameters.terraform_version_constraint }}
+          terragrunt_version_constraint: ${{ parameters.terragrunt_version_constraint }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
+
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: This is ${{ parameters.name }}
+        repoUrl: ${{ parameters.repoUrl }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    entityRef: ${{ steps.register.output.entityRef }}
