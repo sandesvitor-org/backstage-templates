@@ -7,7 +7,7 @@ metadata:
   title: IaC Terragrunt AWS
   description: Estudo de backstage template
 spec:
-  owner: stackstorm-team
+  owner: backstage
   type: service
   parameters:
     - title: Informações de projeto
