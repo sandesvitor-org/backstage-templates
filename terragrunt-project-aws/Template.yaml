@@ -69,6 +69,7 @@ spec:
           terraform_version_constraint: ${{ parameters.terraform_version_constraint }}
           terragrunt_version_constraint: ${{ parameters.terragrunt_version_constraint }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
+          owner: ${{ parameters.owner }}
 
     - id: publish
       name: Publish
