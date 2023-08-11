@@ -3,18 +3,17 @@ apiVersion: backstage.io/v1beta2
 kind: Template
 # some metadata about the template itself
 metadata:
-  name: template-name
-  title: My template
-  description: Scaffolds template-name template
+  name: create-resourcee
+  title: Autoserviço de Infra
+  description: Estudo de backstage templates
 spec:
-  owner: group:group-name
+  owner: backstage
   type: service
 
   # these are the steps which are rendered in the frontend with the form input
   parameters:
-    - title: Fill in some steps
-      required:
-        - name
+    - title: Inromações do Recurso
+      required: [resourceType, resourceName]
       properties:
         resourceType:
           title: Tipo de recurso
@@ -28,8 +27,8 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: fetch-base
-      name: Fetch Base
+    - id: create
+      name: Create Resource
       action: custom:resource:create
       input:
         resourceType: ${{ parameters.resourceType }}
