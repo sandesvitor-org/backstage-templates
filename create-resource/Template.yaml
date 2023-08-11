@@ -33,3 +33,8 @@ spec:
       input:
         resourceType: ${{ parameters.resourceType }}
         resourceName: ${{ parameters.resourceName }}
+
+  output:
+    links:
+      - title: Resultado
+        url: ${{ steps.create.output.result }}
