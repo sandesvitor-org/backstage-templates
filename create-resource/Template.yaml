@@ -1,0 +1,36 @@
+---
+apiVersion: backstage.io/v1beta2
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: template-name
+  title: My template
+  description: Scaffolds template-name template
+spec:
+  owner: group:group-name
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Fill in some steps
+      required:
+        - name
+      properties:
+        resourceType:
+          title: Tipo de recurso
+          type: string
+          description: "EX: s3"
+          ui:autofocus: true
+        resourceName:
+          title: Nome do recurso
+          type: string
+          description: "EX: bucket-test"
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: custom:resource:create
+      input:
+        resourceType: ${{ parameters.resourceType }}
+        resourceName: ${{ parameters.resourceName }}
