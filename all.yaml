@@ -6,3 +6,4 @@ spec:
   type: url
   targets:
     - ./terragrunt-project-aws/Template.yaml
+    - ./create-resource/Template.yaml
