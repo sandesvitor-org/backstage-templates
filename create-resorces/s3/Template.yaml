@@ -46,13 +46,6 @@ spec:
         title: "feat: create ${{ parameters.bucket_name }}"
         targetPath: aws/mock-context/s3
 
-    - id: register
-      name: Register
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: "${{ parameters.bucket_name }}/catalog-info.yaml"
-
   output:
     links:
       - title: Ir para pull request
