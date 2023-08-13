@@ -8,7 +8,7 @@ terraform {
 }
 
 inputs = {
-  bucket = "bucket-atlantis-development"
+  bucket = "${{ parameters.bucket_name }}"
 
   block_public_acls       = true
   block_public_policy     = true
