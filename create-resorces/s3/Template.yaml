@@ -1,0 +1,72 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: create-resources-aws-s3
+  title: "Create Resource: AWS S3"
+  description: Estudo de backstage template
+spec:
+  owner: backstage
+  type: service
+  parameters:
+    - title: Informações de projeto
+      required: [bucket_name,owner]
+      properties:
+        bucket_name:
+          title: Nome do Bucket
+          type: string
+          description: Nome único do bucket
+          ui:autofocus: true
+        owner:
+          title: Owner
+          type: string
+          description: Equipe responsável
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds: [Group]
+    - title: Informações do repositório
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Local do repositório
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          bucket_name: ${{ parameters.bucket_name | replace(' ', '-') | replace('_', '-')}}
+          owner: ${{ parameters.owner }}
+
+    - id: publish
+      name: Publish
+      action: publish:github:pull-request
+      input:
+        description: add ${{ parameters.bucket_name }}
+        repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
+        branchName: ${{ parameters.bucket_name }}
+        title: "feat: create ${{ parameters.bucket_name }}"
+        targetPath: aws/mock-context/s3
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: "${{ parameters.bucket_name }}/catalog-info.yaml"
+
+  output:
+    links:
+      - title: Ir para pull request
+        url: ${{ steps.publish.output.remoteUrl }}
+        icon: github

@@ -7,3 +7,4 @@ spec:
   targets:
     - ./terragrunt-project-aws/Template.yaml
     - ./pokemon/Template.yaml
+    - ./create-resorces/s3/Template.yaml
