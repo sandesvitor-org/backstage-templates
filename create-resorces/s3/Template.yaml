@@ -25,19 +25,7 @@ spec:
           ui:field: OwnerPicker
           ui:options:
             allowedKinds: [Group]
-    - title: Informações do repositório
-      required:
-        - repoUrl
-      properties:
-        repoUrl:
-          title: Local do repositório
-          type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
 
-  # here's the steps that are executed in series in the scaffolder backend
   steps:
     - id: fetch-base
       name: Fetch Base
