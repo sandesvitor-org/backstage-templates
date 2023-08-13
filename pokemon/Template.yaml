@@ -1,0 +1,35 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: pokemon
+  title: Template para vizualizar seu pokemon preferido
+  description: Estudo de backstage templates
+spec:
+  owner: backstage
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Nome do Pokemon
+      required: [pokemon]
+      properties:
+        pokemon:
+          title: Nome do pokemon
+          type: string
+          description: "EX: pikachu =)"
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: fetch-pokemon
+      name: Fetch Pokemon
+      action: custom:pokemon
+      input:
+        pokemon: ${{ parameters.pokemon }}
+
+  output:
+    links:
+      - title: Pokemon
+        url: ${{ steps.fetch-pokemon.output.url }}
+
