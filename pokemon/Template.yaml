@@ -4,7 +4,7 @@ kind: Template
 # some metadata about the template itself
 metadata:
   name: pokemon
-  title: Template para vizualizar seu pokemon preferido
+  title: Pokemon
   description: Estudo de backstage templates
 spec:
   owner: backstage
@@ -22,7 +22,7 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: fetch-pokemon
+    - id: pokemon
       name: Fetch Pokemon
       action: custom:pokemon
       input:
@@ -31,5 +31,5 @@ spec:
   output:
     links:
       - title: Pokemon
-        url: ${{ steps.fetch-pokemon.output.url }}
+        url: ${{ steps.pokemon.output.pokemonUrl }}
 
