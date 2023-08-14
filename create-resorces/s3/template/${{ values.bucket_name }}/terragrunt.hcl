@@ -25,7 +25,7 @@ inputs = {
       }
     }
   }
-  {% endif -%}
+  {%- endif %}
 
   versioning = {
     enabled = ${{ values.versioning }}
