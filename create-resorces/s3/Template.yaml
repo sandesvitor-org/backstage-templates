@@ -8,7 +8,7 @@ metadata:
   description: Estudo de backstage template
 spec:
   owner: backstage
-  type: service
+  type: resource
   parameters:
     - title: Informações de projeto
       required: [bucket_name,owner]
