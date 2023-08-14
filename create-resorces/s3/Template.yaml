@@ -18,6 +18,30 @@ spec:
           type: string
           description: Nome único do bucket
           ui:autofocus: true
+        account:
+          title: Conta
+          type: string
+          description: Nome da conta
+          enum:
+            - homolog
+            - sandbox
+            - production
+        block_public:
+          title: Bloquear acesso público
+          type: boolean
+          description: Nome único do bucket
+          default: true
+        server_side_encryption:
+          title: Criptografia
+          type: boolean
+          description: Criptografia server side
+          default: true
+        versioning:
+          title: Versionamento
+          type: boolean
+          description: Se o bucket terá versionamento
+          default: false
+          ui:autofocus: true
         owner:
           title: Owner
           type: string
@@ -34,6 +58,10 @@ spec:
         url: ./template
         values:
           bucket_name: ${{ parameters.bucket_name | replace(' ', '-') | replace('_', '-')}}
+          account: ${{ parameters.account }}
+          block_public: ${{ parameters.block_public }}
+          server_side_encryption: ${{ parameterserver_side_encryptions.account }}
+          versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
 
     - id: publish
@@ -44,7 +72,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: ${{ parameters.bucket_name }}
         title: "feat: create ${{ parameters.bucket_name }}"
-        targetPath: aws/mock-context/s3
+        targetPath: "aws//mock-context/${{ parameters.account }}/s3"
 
   output:
     links:
