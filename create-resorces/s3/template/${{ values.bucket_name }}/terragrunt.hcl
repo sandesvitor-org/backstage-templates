@@ -15,7 +15,7 @@ inputs = {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-  {% endif -%}
+  {% endif %}
 
   {% if values.server_side_encryption -%}
   server_side_encryption_configuration = {
@@ -25,7 +25,7 @@ inputs = {
       }
     }
   }
-  {% endif -%}
+  {% endif %}
 
   versioning = {
     enabled = ${{ values.versioning }}
