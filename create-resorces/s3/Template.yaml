@@ -60,7 +60,7 @@ spec:
           bucket_name: ${{ parameters.bucket_name | replace(' ', '-') | replace('_', '-')}}
           account: ${{ parameters.account }}
           block_public: ${{ parameters.block_public }}
-          server_side_encryption: ${{ parameter.server_side_encryption }}
+          server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
 
