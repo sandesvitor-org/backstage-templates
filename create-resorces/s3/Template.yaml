@@ -72,7 +72,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: ${{ parameters.bucket_name }}
         title: "feat: create ${{ parameters.bucket_name }}"
-        targetPath: "aws//mock-context/${{ parameters.account }}/s3"
+        targetPath: "aws/mock-context/${{ parameters.account }}/s3"
 
   output:
     links:

@@ -17,7 +17,7 @@ inputs = {
   restrict_public_buckets = true
   {% endif %}
 
-  {% if values.server_side_encryption -%}
+  {%- if values.server_side_encryption %}
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
