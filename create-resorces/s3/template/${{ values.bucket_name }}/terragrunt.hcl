@@ -10,15 +10,14 @@ terraform {
 inputs = {
   bucket = "${{ values.bucket_name }}"
 
-  {% if values.block_public %}
+  {% if values.block_public -%}
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
-  {% endif %}
+  {% endif -%}
 
-
-  {% if values.server_side_encryption %}
+  {% if values.server_side_encryption -%}
   server_side_encryption_configuration = {
     rule = {
       apply_server_side_encryption_by_default = {
@@ -26,7 +25,7 @@ inputs = {
       }
     }
   }
-  {% endif %}
+  {% endif -%}
 
   versioning = {
     enabled = ${{ values.versioning }}
