@@ -1,0 +1,26 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: exemplo
+  title: "Exemplo"
+  description: Estudo de backstage template
+spec:
+  owner: backstage
+  type: resource
+  parameters:
+    - title: Informações de projeto
+      required: [message]
+      properties:
+        message:
+          title: Escreva uma Mensagem
+          type: string
+          description: mensagem
+          ui:autofocus: true
+  steps:
+    - id: exemplo
+      name: Exemplo
+      action: debug:log
+      input:
+        message: ${{ parameters.message }}
