@@ -19,8 +19,18 @@ spec:
           description: mensagem
           ui:autofocus: true
   steps:
-    - id: exemplo
+    - id: exemplo_1
       name: Exemplo
       action: debug:log
       input:
-        message: ${{ parameters.message }}
+        message: 1 - ${{ parameters.message }}"
+    - id: exemplo_2
+      name: Exemplo
+      action: debug:log
+      input:
+        message: 1 - ${{ parameters.message }}"
+    - id: exemplo_3
+      name: Exemplo
+      action: debug:log
+      input:
+        message: "1 - ${{ parameters.message }}"
