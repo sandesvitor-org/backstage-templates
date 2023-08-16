@@ -24,14 +24,14 @@ spec:
           description: Nome da conta
           enum:
             - banking-prd
-            - banking-hml
+            - banking-stg
             - credit-prd
             - credit-stg
             - payments-finance-prd
             - payments-finance-stg
           enumNames:
             - "Banking PRD (equivalente à production)"
-            - "Banking HML (equivalente à homolog)"
+            - "Banking STG (equivalente à homolog)"
             - "Credit PRD"
             - "Credit STG"
             - "Payment Finance PRD"
