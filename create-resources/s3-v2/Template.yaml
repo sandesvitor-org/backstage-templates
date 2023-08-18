@@ -67,7 +67,7 @@ spec:
       name: Outputs do arquivo de config.yaml
       action: custom:aws:config
       input:
-        configFilePath: ../config-template/config.yaml
+        configFilePath: https://github.com/sandesvitor-org/backstage-templates/blob/main/create-resources/config-template/config.yaml
         account: ${{ parameters.account }}
 
     - id: fetch-base
