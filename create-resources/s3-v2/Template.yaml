@@ -57,15 +57,9 @@ spec:
               - Group
 
   steps:
-    - id: fetch-config
-      name: Fetch files
+    - id: aws-config
+      name: Load AWS Config
       action: custom:aws:config
-
-    - id: account-config
-      name: Parse YAML Config File
-      action: custom:yaml
-      input:
-        path: config.yaml
 
     - id: fetch-base
       name: Fetch Base
@@ -74,7 +68,7 @@ spec:
         url: ./template
         values:
           account: ${{ parameters.account }}
-          role_arn: ${{ steps.account-config.output.result.account_settings[parameters.account].role_arn }}
+          role_arn: ${{ steps.aws-config.output.result.account_settings[parameters.account].role_arn }}
 
     - id: publish
       name: Publish
