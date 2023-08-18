@@ -61,7 +61,7 @@ spec:
       name: Parse YAML Config File
       action: custom:yaml
       input:
-        file: ./config.yaml
+        path: ./config.yaml
 
     - id: Debug
       name: Debug
