@@ -33,29 +33,13 @@ spec:
           enum:
             - banking-prd
             - banking-hml
-            - banking-sdx
-            - credit-prd
-            - credit-stg
-            - payments-finance-prd
-            - payments-finance-stg
-          enumNames:
-            - Banking PRD (equivalente à conta production)
-            - Banking HML (equivalente à conta homolog)
-            - Banking SDX (equivalente à conta sandbox)
-            - Credit PRD
-            - Credit STG
-            - Payment Finance PRD
-            - Payment Finance STG'
-          parameters:
-          - name: banking-prd
-            type: object
-            required: true
-            properties:
-              role_arn: arn:aws:iam::123456789012:role/banking-prd
-          - name: banking-hml
-            type: object
-            required: true
-            properties:
+
+        account_settings:
+          type: object
+          properties:
+            banking-prd:
+              role_arn: arn:aws:iam::999456789012:role/banking-prd
+            banking-hml:
               role_arn: arn:aws:iam::123456789012:role/banking-hml
 
         block_public:
@@ -93,12 +77,8 @@ spec:
       input:
         url: ./template
         values:
-          bucket_name: ${{ parameters.bucket_name | replace(' ', '-') | replace('_', '-')}}
           account: ${{ parameters.account }}
-          block_public: ${{ parameters.block_public }}
-          server_side_encryption: ${{ parameters.server_side_encryption }}
-          versioning: ${{ parameters.versioning }}
-          owner: ${{ parameters.owner }}
+          role_arn: ${{ parameters.account_settings[parameters.account].role_arn }}
 
     - id: publish
       name: Publish

@@ -1,0 +1,19 @@
+account_settings:
+  banking-prd:
+    role_arn: "arn:aws:iam::123456789012:role/banking-prd"
+    remote_state_path: "path/to/production"
+  banking-hml:
+    role_arn: "arn:aws:iam::123456789012:role/banking-hml"
+    remote_state_path: "path/to/default"
+  credit-prd:
+    role_arn: "arn:aws:iam::123456789012:role/default-role"
+    remote_state_path: "path/to/default"
+  credit-stg:
+    role_arn: "arn:aws:iam::123456789012:role/default-role"
+    remote_state_path: "path/to/default"
+  payments-finance-prd:
+    role_arn: "arn:aws:iam::123456789012:role/default-role"
+    remote_state_path: "path/to/default"
+  payments-finance-stg:
+    role_arn: "arn:aws:iam::123456789012:role/default-role"
+    remote_state_path: "path/to/default"
