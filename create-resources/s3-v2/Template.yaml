@@ -73,7 +73,7 @@ spec:
       name: Debug
       action: debug:log
       input:
-        message: ${{ steps.account-config.output.result.account_settings[parameters.account].role_arn }}
+        message: "${{ steps.account-config.output.result.account_settings[parameters.account].role_arn }}"
 
     - id: fetch-base
       name: Fetch Base
