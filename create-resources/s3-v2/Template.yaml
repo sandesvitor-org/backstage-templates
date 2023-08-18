@@ -57,17 +57,11 @@ spec:
               - Group
 
   steps:
-    # - id: config
-    #   name: Download de arquivo de config.yaml
-    #   action: fetch:plain
-    #   input:
-    #     url: ../config-template/
-
     - id: aws
       name: Outputs do arquivo de config.yaml
       action: custom:aws:config
       input:
-        configFilePath: https://github.com/sandesvitor-org/backstage-templates/blob/main/create-resources/config-template/config.yaml
+        configFilePath: config-template/config.yaml
         account: ${{ parameters.account }}
 
     - id: fetch-base
