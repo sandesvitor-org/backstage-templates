@@ -18,12 +18,14 @@ spec:
     - title: Informações de projeto
       required: [bucket_name,account,owner]
       properties:
+
         bucket_name:
           pattern: '^[a-z0-9](?:[a-z0-9]|(?<=[a-z0-9])[-.](?=[a-z0-9])){1,61}[a-z0-9]$'
           title: Nome do Bucket S3
           type: string
           description: Nome único do bucket a ser deployado na AWS (lembre-se que o nome do bucket é global)
           ui:autofocus: true
+
         account:
           title: Contexto/Conta
           type: string
@@ -44,22 +46,37 @@ spec:
             - Credit STG
             - Payment Finance PRD
             - Payment Finance STG'
+          parameters:
+          - name: banking-prd
+            type: object
+            required: true
+            properties:
+              role_arn: arn:aws:iam::123456789012:role/banking-prd
+          - name: banking-hml
+            type: object
+            required: true
+            properties:
+              role_arn: arn:aws:iam::123456789012:role/banking-hml
+
         block_public:
           title: Bloquear acesso público
           type: boolean
           description: "Para bloquear qualquer acesso público ao bucket (default: true)"
           default: true
+
         server_side_encryption:
           title: Ativar criptografia
           type: boolean
           description: "Criptografia server side (default: true)"
           default: true
+
         versioning:
           title: Ativar versionamento
           type: boolean
           description: Se o bucket terá versionamento
           default: false
           ui:autofocus: true
+
         owner:
           title: Time dono da aplicação
           type: string
