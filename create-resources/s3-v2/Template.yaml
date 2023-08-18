@@ -1,0 +1,100 @@
+# Notice the v1beta3 version
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: s3-template
+  namespace: stone
+  title: "[Autosserviço de Infraestrutura] AWS S3 Bucket"
+  description: Cria um bucket s3 como autosserviço
+  tags:
+    - aws
+    - infrastructure
+    - storage
+spec:
+  owner: stone-payments/foundation-experience
+  type: resource
+  parameters:
+    - title: Informações de projeto
+      required: [bucket_name,account,owner]
+      properties:
+        bucket_name:
+          pattern: '^[a-z0-9](?:[a-z0-9]|(?<=[a-z0-9])[-.](?=[a-z0-9])){1,61}[a-z0-9]$'
+          title: Nome do Bucket S3
+          type: string
+          description: Nome único do bucket a ser deployado na AWS (lembre-se que o nome do bucket é global)
+          ui:autofocus: true
+        account:
+          title: Contexto/Conta
+          type: string
+          description: Nome do contexto onde o bucket será deployado (por exemplo, o contexto banking-hml equivale à conta homolog em Banking)
+          enum:
+            - banking-prd
+            - banking-hml
+            - banking-sdx
+            - credit-prd
+            - credit-stg
+            - payments-finance-prd
+            - payments-finance-stg
+          enumNames:
+            - Banking PRD (equivalente à conta production)
+            - Banking HML (equivalente à conta homolog)
+            - Banking SDX (equivalente à conta sandbox)
+            - Credit PRD
+            - Credit STG
+            - Payment Finance PRD
+            - Payment Finance STG'
+        block_public:
+          title: Bloquear acesso público
+          type: boolean
+          description: "Para bloquear qualquer acesso público ao bucket (default: true)"
+          default: true
+        server_side_encryption:
+          title: Ativar criptografia
+          type: boolean
+          description: "Criptografia server side (default: true)"
+          default: true
+        versioning:
+          title: Ativar versionamento
+          type: boolean
+          description: Se o bucket terá versionamento
+          default: false
+          ui:autofocus: true
+        owner:
+          title: Time dono da aplicação
+          type: string
+          description: Time dono da aplicação que usará o repositório
+          ui:field: OwnerPicker
+          ui:options:
+            allowedKinds:
+              - Group
+
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          bucket_name: ${{ parameters.bucket_name | replace(' ', '-') | replace('_', '-')}}
+          account: ${{ parameters.account }}
+          block_public: ${{ parameters.block_public }}
+          server_side_encryption: ${{ parameters.server_side_encryption }}
+          versioning: ${{ parameters.versioning }}
+          owner: ${{ parameters.owner }}
+
+    - id: publish
+      name: Publish
+      action: publish:github:pull-request
+      input:
+        description: add ${{ parameters.bucket_name }}
+        repoUrl: github.com?owner=stone-payments&repo=infra-terraform-autoservice
+        branchName: ${{ parameters.bucket_name }}
+        title: "feat: create ${{ parameters.bucket_name }}"
+        targetPath: "aws/${{ parameters.account }}/global/s3"
+
+  output:
+    links:
+      - title: Ir para pull request
+        url: ${{ steps.publish.output.remoteUrl }}
+        icon: github
