@@ -57,6 +57,12 @@ spec:
               - Group
 
   steps:
+    - id: fetch-config
+      name: Fetch files
+      action: fetch:plain
+      input:
+        url: ./config.yaml
+
     - id: account-config
       name: Parse YAML Config File
       action: custom:yaml
