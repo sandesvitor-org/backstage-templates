@@ -1,0 +1,5 @@
+account_settings:
+  banking-prd:
+    role_arn: "arn:aws:iam::123456789012:role/banking-prd"
+  banking-hml:
+    role_arn: "arn:aws:iam::123456789012:role/banking-hml"
