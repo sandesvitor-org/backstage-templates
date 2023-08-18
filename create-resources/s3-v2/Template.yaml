@@ -74,7 +74,6 @@ spec:
           owner: ${{ parameters.owner }}
           role_arn: ${{ steps.aws-config.output.result.account_settings[parameters.account].role_arn }}
 
-
     - id: publish
       name: Publish
       action: publish:github:pull-request
