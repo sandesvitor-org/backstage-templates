@@ -62,6 +62,7 @@ spec:
       action: fetch:plain:file
       input:
         url: config.yaml
+        targetPath: .
 
     - id: account-config
       name: Parse YAML Config File
