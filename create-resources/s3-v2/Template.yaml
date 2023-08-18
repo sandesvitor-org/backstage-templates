@@ -60,6 +60,8 @@ spec:
     - id: aws-config
       name: Load AWS Config
       action: custom:aws:config
+      input:
+        account: ${{ parameters.account }}
 
     - id: fetch-base
       name: Fetch Base
@@ -72,7 +74,7 @@ spec:
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
-          role_arn: ${{ steps.aws-config.output.result.account_settings['banking-prd'].role_arn | json }}
+          role_arn: ${{ steps.aws-config.output.role_arn }}
 
     - id: publish
       name: Publish
