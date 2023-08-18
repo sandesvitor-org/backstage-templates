@@ -57,17 +57,25 @@ spec:
               - Group
 
   steps:
+    - id: config
+      name: Download de arquivo de configuracao da AWS
+      action: fetch:plain:file
+      input:
+        url: ../config-template/aws-config.yaml
+        targetPath: config-template/
+
     - id: aws
-      name: Load AWS Config
+      name: Exportando outputs do arquivo de configuracao da AWS
       action: custom:aws:config
       input:
+        configFilePath: config-template/aws-config.yaml
         account: ${{ parameters.account }}
 
     - id: fetch-base
-      name: Fetch Base
+      name: Criando os values da aplicacao template
       action: fetch:template
       input:
-        url: ./template
+        url: ./template/bucket
         values:
           bucket_name: ${{ parameters.bucket_name }}
           account: ${{ parameters.account }}
