@@ -59,9 +59,9 @@ spec:
   steps:
     - id: fetch-config
       name: Fetch files
-      action: fetch:plain
+      action: fetch:plain:file
       input:
-        url: .
+        url: config.yaml
 
     - id: account-config
       name: Parse YAML Config File
