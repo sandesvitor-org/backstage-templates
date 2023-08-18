@@ -61,7 +61,7 @@ spec:
       name: Fetch files
       action: fetch:plain
       input:
-        url: "."
+        url: .
 
     - id: account-config
       name: Parse YAML Config File
@@ -73,7 +73,7 @@ spec:
       name: Debug
       action: debug:log
       input:
-        message: ${{ steps.account-config.output.result.role_arn }}
+        message: ${{ steps.account-config.output.result.account_settings[parameters.account].role_arn }}
 
     - id: fetch-base
       name: Fetch Base
@@ -82,7 +82,7 @@ spec:
         url: ./template
         values:
           account: ${{ parameters.account }}
-          role_arn: ${{ steps.account-config.output.result.role_arn }}
+          role_arn: ${{ steps.account-config.output.result.account_settings[parameters.account].role_arn }}
 
     - id: publish
       name: Publish
