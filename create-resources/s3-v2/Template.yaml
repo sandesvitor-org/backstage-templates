@@ -59,10 +59,7 @@ spec:
   steps:
     - id: fetch-config
       name: Fetch files
-      action: fetch:plain:file
-      input:
-        url: config.yaml
-        targetPath: .
+      action: custom:aws:config
 
     - id: account-config
       name: Parse YAML Config File
