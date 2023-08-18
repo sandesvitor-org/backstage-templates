@@ -57,7 +57,7 @@ spec:
               - Group
 
   steps:
-    - id: aws-config
+    - id: aws
       name: Load AWS Config
       action: custom:aws:config
       input:
@@ -74,7 +74,7 @@ spec:
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
-          role_arn: ${{ steps.aws-config.output.roleArn }}
+          role_arn: ${{ steps.aws.output.roleArn }}
 
     - id: publish
       name: Publish
