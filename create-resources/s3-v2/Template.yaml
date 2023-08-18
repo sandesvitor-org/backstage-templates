@@ -61,13 +61,13 @@ spec:
       name: Fetch files
       action: fetch:plain
       input:
-        url: ./config.yaml
+        url: "."
 
     - id: account-config
       name: Parse YAML Config File
       action: custom:yaml
       input:
-        path: ./config.yaml
+        path: config.yaml
 
     - id: Debug
       name: Debug
