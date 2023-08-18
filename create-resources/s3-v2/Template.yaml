@@ -88,10 +88,10 @@ spec:
       action: publish:github:pull-request
       input:
         description: add ${{ parameters.bucket_name }}
-        repoUrl: github.com?owner=stone-payments&repo=infra-terraform-autoservice
+        repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: ${{ parameters.bucket_name }}
         title: "feat: create ${{ parameters.bucket_name }}"
-        targetPath: "aws/${{ parameters.account }}/global/s3"
+        targetPath: "aws/global/${{ parameters.account }}/s3"
 
   output:
     links:
