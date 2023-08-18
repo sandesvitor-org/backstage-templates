@@ -74,7 +74,7 @@ spec:
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
-          role_arn: ${{ steps.aws-config.output.role_arn }}
+          role_arn: ${{ steps.aws-config.output.roleArn }}
 
     - id: publish
       name: Publish
