@@ -67,8 +67,13 @@ spec:
       input:
         url: ./template
         values:
+          bucket_name: ${{ parameters.bucket_name }}
           account: ${{ parameters.account }}
+          server_side_encryption: ${{ parameters.server_side_encryption }}
+          versioning: ${{ parameters.versioning }}
+          owner: ${{ parameters.owner }}
           role_arn: ${{ steps.aws-config.output.result.account_settings[parameters.account].role_arn }}
+
 
     - id: publish
       name: Publish
