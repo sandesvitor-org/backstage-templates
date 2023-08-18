@@ -38,8 +38,11 @@ spec:
           type: object
           properties:
             banking-prd:
+              type: string
               role_arn: arn:aws:iam::999456789012:role/banking-prd
+
             banking-hml:
+              type: string
               role_arn: arn:aws:iam::123456789012:role/banking-hml
 
         block_public:
