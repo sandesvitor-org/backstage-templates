@@ -83,6 +83,8 @@ spec:
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
           role_arn: ${{ steps.aws.output.roleArn }}
+          aws_state_bucket: ${{ steps.aws.output.awsStateBucket }}
+
 
     - id: publish
       name: Publish
