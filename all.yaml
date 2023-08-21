@@ -8,4 +8,3 @@ spec:
     - ./terragrunt-project-aws/Template.yaml
     - ./pokemon/Template.yaml
     - ./create-resources/s3/Template.yaml
-    - create-resources/s3-v2/Template.yaml
