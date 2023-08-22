@@ -31,6 +31,23 @@ spec:
           enum:
             - banking-prd
             - banking-hml
+            - banking-sdx
+            - credit-prd
+            - credit-stg
+            - payments-finance-prd
+            - payments-finance-stg
+            - payments-pagarme-prd
+            - payments-pagarme-stg
+          enumNames:
+            - Banking Production (equivalente à production)
+            - Banking Homolog (equivalente à homolog)
+            - Banking Sandbox (equivalente à sandbox)
+            - Credit Production
+            - Credit Staging
+            - Payment Finance Production
+            - Payment Finance Staging
+            - Payment Pagarme Staging
+            - Payment Pagarme Staging
         block_public:
           title: Bloquear acesso público
           type: boolean
@@ -57,34 +74,41 @@ spec:
               - Group
 
   steps:
-    - id: config
-      name: Download de arquivo de config.yaml
+    - id: vars
+      name: Download de arquivo config.yaml
       action: fetch:plain
       input:
-        url: ../config/
+        url: ../vars/
         targetPath: .
 
     - id: aws
-      name: Outputs do arquivo de config.yaml
+      name: Exportando outputs de config.yaml
       action: custom:aws:config
       input:
         configFilePath: ./config.yaml
         account: ${{ parameters.account }}
 
-    - id: fetch-base
-      name: Criando os values da aplicacao template
+    - id: fetch-config
+      name: Criando values para provider e backend
       action: fetch:template
       input:
-        url: ./template/bucket
+        url: ../helpers/config-template/
+        values:
+          account: ${{ parameters.account }}
+          bucket_name: ${{ parameters.bucket_name }}
+          role_arn: ${{ steps.aws.output.roleArn }}
+
+    - id: fetch-base
+      name: Criando values do template S3
+      action: fetch:template
+      input:
+        url: ./template
         values:
           bucket_name: ${{ parameters.bucket_name }}
           account: ${{ parameters.account }}
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
           owner: ${{ parameters.owner }}
-          role_arn: ${{ steps.aws.output.roleArn }}
-          aws_state_bucket: ${{ steps.aws.output.awsStateBucket }}
-
 
     - id: publish
       name: Publish
@@ -94,7 +118,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: ${{ parameters.bucket_name }}
         title: "feat: create ${{ parameters.bucket_name }}"
-        targetPath: "aws/global/${{ parameters.account }}/s3"
+        targetPath: "aws/${{ parameters.account }}/global/s3"
 
   output:
     links:
