@@ -96,7 +96,7 @@ spec:
         values:
           account: ${{ parameters.account }}
           bucket_name: ${{ parameters.bucket_name }}
-          role_arn: ${{ steps.aws.output.accountVars.roleArn }}
+          role_arn: ${{ steps.aws.output.accountVars.role_arn }}
 
     - id: fetch-base
       name: Criando values do template S3
