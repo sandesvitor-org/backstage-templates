@@ -7,3 +7,31 @@ account_settings:
     role_arn: "arn:aws:iam::129817111992:role/atlantis-roles-banking"
     account_id: "129817111992"
     aws_state_bucket: "tfstates-homolog-f4b29095"
+  banking-sdx:
+    role_arn: "arn:aws:iam::999456789012:role/atlantis-roles-banking"
+    account_id: "584077526265"
+    aws_state_bucket: "tfstates-sandbox-8b898041"
+  credit-prd:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""
+  credit-stg:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""
+  payments-finance-prd:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""
+  payments-finance-stg:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""
+  payments-pagarme-prd:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""
+  payments-pagarme-stg:
+    role_arn: ""
+    account_id: ""
+    aws_state_bucket: ""

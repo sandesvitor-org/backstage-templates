@@ -83,7 +83,7 @@ spec:
 
     - id: aws
       name: Exportando outputs de config.yaml
-      action: custom:aws:config
+      action: stone:aws:vars
       input:
         configFilePath: ./config.yaml
         account: ${{ parameters.account }}
@@ -96,7 +96,7 @@ spec:
         values:
           account: ${{ parameters.account }}
           bucket_name: ${{ parameters.bucket_name }}
-          role_arn: ${{ steps.aws.output.roleArn }}
+          role_arn: ${{ steps.aws.output.accountVars.roleArn }}
 
     - id: fetch-base
       name: Criando values do template S3
