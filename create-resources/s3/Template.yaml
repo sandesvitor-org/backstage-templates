@@ -78,7 +78,7 @@ spec:
       name: Download de arquivo config.yaml
       action: fetch:plain
       input:
-        url: ../vars/
+        url: ../helpers/vars/
         targetPath: .
 
     - id: aws
