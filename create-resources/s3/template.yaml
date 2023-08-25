@@ -46,7 +46,7 @@ spec:
             - Credit Staging
             - Payment Finance Production
             - Payment Finance Staging
-            - Payment Pagarme Staging
+            - Payment Pagarme Production
             - Payment Pagarme Staging
         block_public:
           title: Bloquear acesso público
@@ -74,32 +74,22 @@ spec:
               - Group
 
   steps:
-    - id: vars
-      name: Download de arquivo config.yaml
-      action: fetch:plain
-      input:
-        url: ../helpers/vars/
-        targetPath: .
-
-    - id: aws
-      name: Exportando outputs de config.yaml
-      action: stone:aws:vars
-      input:
-        configFilePath: ./config.yaml
-        account: ${{ parameters.account }}
-
     - id: fetch-config
-      name: Criando values para provider e backend
+      name: Gerando configuração de provider e backend terraform
       action: fetch:template
       input:
         url: ../helpers/config-template/
         values:
           account: ${{ parameters.account }}
           bucket_name: ${{ parameters.bucket_name }}
-          role_arn: ${{ steps.aws.output.account_vars.role_arn }}
+          aws_state_bucket_name: state-bucket-test
+          aws_state_bucket_region: us-east-1
+          aws_state_bucket_key: "aws/${{ parameters.account }}/global/s3/${{ parameters.bucket_name }}/terraform.tfstate"
+          aws_provider_role_arn: false
+          aws_provider_region: us-east-1
 
     - id: fetch-base
-      name: Criando values do template S3
+      name: Gerando arquivos terraform do bucket S3
       action: fetch:template
       input:
         url: ./template
@@ -111,7 +101,7 @@ spec:
           owner: ${{ parameters.owner }}
 
     - id: publish
-      name: Publish
+      name: Abrindo Pull Request
       action: publish:github:pull-request
       input:
         description: add ${{ parameters.bucket_name }}

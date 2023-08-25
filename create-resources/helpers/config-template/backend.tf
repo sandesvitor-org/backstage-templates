@@ -1,11 +1,11 @@
 terraform {
   backend "s3" {
-    bucket                   = "bucket_name"
-    encrypt                  = true
-    region                   = "us-east-1"
-    key                      = "aws/${{ values.account }}/global/s3/${{ values.bucket_name }}/terraform.tfstate"
-    role_arn                 = "${{ values.role_arn }}"
-    skip_bucket_root_access  = true
-    skip_bucket_enforced_tls = true
+    bucket   = "${{ values.aws_state_bucket_name }}"
+    encrypt  = true
+    region   = "${{ values.aws_state_bucket_region }}"
+    key      = "${{ values.aws_state_bucket_key }}"
+    {% if values.aws_state_bucket_role_arn -%}
+    role_arn = "${{ values.aws_state_bucket_role_arn }}"
+    {% endif %}
   }
 }
