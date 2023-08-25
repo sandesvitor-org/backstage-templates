@@ -79,7 +79,7 @@ spec:
       action: fetch:plain
       input:
         url: ../helpers/config-template/
-        targetPath: ./template
+        targetPath: .
 
     - id: fetch-base
       name: Gerando arquivos terraform do bucket S3
