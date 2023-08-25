@@ -5,9 +5,9 @@ provider "aws" {
   assume_role {
     role_arn = ${{ values.aws_provider_role_arn }}
   }
-  {% endif %}
+  {% endif -%}
 
   {% if values.aws_provider_profile -%}
   profile = ${{ values.aws_provider_profile }}
-  {% endif %}
+  {% endif -%}
 }
