@@ -84,6 +84,7 @@ spec:
           bucket_name: ${{ parameters.bucket_name }}
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
+          description: "Bucket S3 ${{ parameters.bucket_name }} criado na conta ${{ parameters.account }}."
 
     - id: fetch-config
       name: Gerando provider e backend
