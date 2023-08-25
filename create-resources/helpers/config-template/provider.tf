@@ -7,5 +7,5 @@ provider "aws" {
   {% endif -%}
   {% if values.aws_provider_profile -%}
   profile = ${{ values.aws_provider_profile }}
-  {%- endif -%}
+  {% endif %}
 }
