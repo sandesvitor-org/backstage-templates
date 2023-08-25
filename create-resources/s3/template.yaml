@@ -79,6 +79,7 @@ spec:
       action: fetch:template
       input:
         url: ./template
+        targetPath: "./${{ parameters.bucket_name }}"
         values:
           bucket_name: ${{ parameters.bucket_name }}
           server_side_encryption: ${{ parameters.server_side_encryption }}
