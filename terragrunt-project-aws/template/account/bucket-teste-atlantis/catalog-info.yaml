@@ -1,0 +1,12 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bucket-1
+  description: daDA
+  annotations:
+    backstage.io/managed-by-origin-location: url:http://github.com/${{ values.destination.owner }}/${{ values.destination.repo }}/blob/main/catalog-info.yaml
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/backstage

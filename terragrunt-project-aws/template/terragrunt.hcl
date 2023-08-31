@@ -1,5 +1,5 @@
-terraform_version_constraint  = "${{ values.terraform_version_constraint }}"
-terragrunt_version_constraint = "${{ values.terragrunt_version_constraint }}"
+terraform_version_constraint  = "1.2.9"
+terragrunt_version_constraint = ""0.39.2""
 
 terraform {
   extra_arguments "disable_auto_approve" {

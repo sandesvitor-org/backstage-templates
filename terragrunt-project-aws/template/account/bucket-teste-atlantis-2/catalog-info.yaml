@@ -1,0 +1,12 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: bucket-teste-atlantis-2
+  description: daDA
+  annotations:
+    backstage.io/managed-by-origin-location: url:http://github.com/sandesvvitor-org/hello/blob/main/catalog-info.yaml
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/backstage

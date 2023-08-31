@@ -111,7 +111,7 @@ spec:
         targetPath: "aws/${{ parameters.account }}/global/s3"
 
     - id: register
-      name: Register
+      name: Registrando componente
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}

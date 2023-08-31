@@ -10,3 +10,14 @@ spec:
   type: service
   lifecycle: production
   owner: ${{ values.owner }}
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: split-monorepo
+spec:
+  type: url
+  targets:
+    - ./account/bucket-teste-atlantis/catalog-info.yaml
+    - ./account/bucket-teste-atlantis-2/catalog-info.yaml
