@@ -84,38 +84,32 @@ spec:
           bucket_name: ${{ parameters.bucket_name }}
           server_side_encryption: ${{ parameters.server_side_encryption }}
           versioning: ${{ parameters.versioning }}
-          description: "Bucket S3 ${{ parameters.bucket_name }} criado na conta ${{ parameters.account }}."
 
     - id: fetch-config
-      name: Gerando provider e backend
+      name: Gerando provider.tf e backend.tf
       action: fetch:template
       input:
         url: ../helpers/config-template/
         targetPath: "./${{ parameters.bucket_name }}"
         values:
           account: ${{ parameters.account }}
-          aws_state_bucket_name: state-bucket-test
+          bucket_name: ${{ parameters.bucket_name }}
+          aws_state_bucket_name: foundation-platform-terraform-state-tools-prd
           aws_state_bucket_region: us-east-1
           aws_state_bucket_key: "aws/${{ parameters.account }}/global/s3/${{ parameters.bucket_name }}/terraform.tfstate"
-          aws_provider_role_arn: false
           aws_provider_region: us-east-1
+          aws_state_bucket_role_arn: "arn:aws:iam::322745845743:role/atlantis-eks-bucket-policy-stone-tools-prd"
+          aws_state_bucket_dynamodbtable: "atlantis-eks-stone-tools-prd"
 
     - id: publish
       name: Abrindo Pull Request
       action: publish:github:pull-request
       input:
-        description: add ${{ parameters.bucket_name }}
+        description: Add S3 Bucket ${{ parameters.bucket_name }}
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: ${{ parameters.bucket_name }}
         title: "feat: create ${{ parameters.bucket_name }}"
         targetPath: "aws/${{ parameters.account }}/global/s3"
-
-    - id: register
-      name: Registrando componente
-      action: catalog:register
-      input:
-        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: '/catalog-info.yaml'
 
   output:
     links:
