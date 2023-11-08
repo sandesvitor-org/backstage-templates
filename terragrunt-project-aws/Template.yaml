@@ -18,6 +18,16 @@ spec:
           type: string
           description: Nome único
           ui:autofocus: true
+        have_gha:
+          title: Tem GHA
+          type: boolean
+          description: "GHA"
+          default: false
+        have_azure_devops:
+          title: Tem Azure DevOps
+          type: boolean
+          description: "Azure DevOps"
+          default: false
         title:
           title: Título
           type: string
@@ -70,6 +80,8 @@ spec:
           terragrunt_version_constraint: ${{ parameters.terragrunt_version_constraint }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
           owner: ${{ parameters.owner }}
+          have_gha: ${{ parameters.have_gha }}
+          have_azure_devops: ${{ parameters.have_azure_devops }}
 
     - id: publish
       name: Publish

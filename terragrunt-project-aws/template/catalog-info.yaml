@@ -5,9 +5,13 @@ metadata:
   name: ${{ values.name }}
   description: ${{ values.description }}1182
   annotations:
+    {% if values.have_gha -%}
     github.com/project-slug: ${{ values.destination.owner }}/${{ values.destination.repo }}
+    {% endif %}
+    {% if values.have_azure_devops -%}
     dev.azure.com/project: DevOps
     dev.azure.com/build-definition: homolog-aws-us-east-1-ec2-newrelic-agent-camel
+    {% endif %}
 spec:
   type: service
   lifecycle: production
@@ -23,3 +27,7 @@ spec:
   targets:
     - ./account/bucket-teste-atlantis/catalog-info.yaml
     - ./account/bucket-teste-atlantis-2/catalog-info.yaml
+
+ {% if values.block_public -%}
+
+  {% endif %}
