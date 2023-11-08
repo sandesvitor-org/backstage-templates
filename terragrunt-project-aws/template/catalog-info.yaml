@@ -7,7 +7,7 @@ metadata:
   annotations:
     github.com/project-slug: ${{ values.destination.owner }}/${{ values.destination.repo }}
     dev.azure.com/project: DevOps
-    dev.azure.com/build-definition: "homolog-aws-us-east-1-ec2-newrelic-agent-camel"
+    dev.azure.com/build-definition: homolog-aws-us-east-1-ec2-newrelic-agent-camel
 spec:
   type: service
   lifecycle: production
