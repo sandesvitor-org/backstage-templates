@@ -46,11 +46,9 @@ spec:
             - Vault
         roleArn:
           title: Role ARN
-          type: array
+          type: string
           description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
-          items:
-            type: string
-            pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
+          pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
         azureTenant:
           title: Azure Tenant
           type: boolean
