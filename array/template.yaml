@@ -1,0 +1,49 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: Atlantis
+  title: "Atlantis Workflow Template"
+  tags: [foundation-platform]
+  description: |
+    Template para novos workflows do Atlantis
+spec:
+  owner: stone-payments/foundation-platform-experience
+  type: service
+
+  parameters:
+    - title: "Dados do Workflow"
+      required: [name,repositories]
+      properties:
+        name:
+          title: "Nome do Workflow"
+          type: string
+          description: "Nome da Aplicação"
+
+        repositories:
+          title: Repositório(s)
+          type: array
+          description: Repositório(s) autorizado(s) a usar o workflow
+          items:
+            type: string
+            pattern: '^[0-9]*?([a-z-]+)[0-9]*?$'
+
+  steps:
+    - id: fetch-base
+      name: Gerando arquivos terraform do bucket S3
+      action: fetch:template
+      input:
+        url: ./template
+        targetPath: "./${{ parameters.bucket_name }}"
+        values:
+          repositories: ${{ parameters.repositories }}
+
+    - id: publish
+      name: Abrindo Pull Request
+      action: publish:github:pull-request
+      input:
+        description: Add Atlantis Workflow ${{ parameters.name }}
+        repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
+        branchName: feat/adding-${{ parameters.name }}
+        title: "feat: create ${{ parameters.name }}"
+        targetPath: "workflow.d"
+
