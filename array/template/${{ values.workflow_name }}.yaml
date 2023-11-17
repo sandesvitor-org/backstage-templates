@@ -1,4 +1,4 @@
 repositories:
   {% for repository in values.repositories -%}
-  - {{ repository }}
+  - ${{ repository }}
   {% endfor -%}
