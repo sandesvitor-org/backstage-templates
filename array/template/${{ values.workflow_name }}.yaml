@@ -2,3 +2,28 @@ repositories:
   {% for repository in values.repositories -%}
   - ${{ repository }}
   {% endfor -%}
+
+{% if values.extra_envs -%}
+envs:
+  {% for env in values.extra_envs -%}
+  - name: ${{ env.name }}
+    value: ${{ env.value }}
+  {% endfor -%}
+{% endif %}
+
+{% if values.init_extra_args -%}
+init_extra_args:
+  {% for arg in values.init_extra_args -%}
+  - ${{ arg }}
+  {% endfor -%}
+{% endif %}
+
+workflow: ${{ values.workflow_name }}
+
+{% if values.role_arn -%}
+rolearn: {% if values.role_arn -%}
+{% endif %}
+
+{% if values.${{ values.azure_tenant }} -%}
+azure_tenant: stone
+{% endif %}

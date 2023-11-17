@@ -12,38 +12,95 @@ spec:
 
   parameters:
     - title: "Dados do Workflow"
-      required: [name,repositories]
+      required: [workflow_name,repositories,cloudProviderOrExternalService]
       properties:
-        name:
-          title: "Nome do Workflow"
+        workflow_name:
+          title: "Nome"
           type: string
-          description: "Nome da Aplicação"
-
+          description: "Nome do Workflow"
         repositories:
           title: Repositório(s)
           type: array
-          description: Repositório(s) autorizado(s) a usar o workflow
+          description: Repositório(s) autorizado(s) a usar o workflow (precisa estar no formato 'owner/repositóry')
           items:
             type: string
-            pattern: '^[0-9]*?([a-z-]+)[0-9]*?$'
+            pattern: '^(dlpco|stone-payments|pagarme)\/[0-9]*?([a-z-]+)[0-9]*?$'
+        environment:
+          title: Ambiente
+          type: string
+          description: "Ambiente de permissão (ex: production)"
+          enum: ["production","sandbox","staging"]
+          enumNames:
+            - Production
+            - Sandbox
+            - Staging
+        cloudProviderOrExternalService:
+          title: Cloud Provider or External Services
+          type: string
+          description: "Diretório referente a um cloud provider (ex: aws) ou a um serviço externo (ex: MongoDB Atlas)"
+          enum: ["aws","azure","mongo","opsgenie", "vault"]
+          enumNames:
+            - AWS
+            - Azure
+            - MongoDB Atlas
+            - Vault
+        roleArn:
+          title: Role ARN
+          type: array
+          description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
+          items:
+            type: string
+            pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
+        azureTenant:
+          title: Azure Tenant
+          type: boolean
+          description: Tenant da Azure para logar nas subscriptions
+        initExtraArgs:
+          title: Init Extra Args
+          type: array
+          description: "Argumentos iniciais para o terraform extras (ex: -reconfigure)"
+          items:
+            type: string
+        extraEnvs:
+          title: Extra Envs
+          type: array
+          description: Adicionar variáveis de ambiente extras (seguindo o padrão chave/valor)
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              values:
+                type: string
 
   steps:
     - id: fetch-base
-      name: Gerando arquivos terraform do bucket S3
+      name: Gerando arquivos do workflow do Atlantis
       action: fetch:template
       input:
         url: ./template
-        targetPath: "./${{ parameters.bucket_name }}"
+        targetPath: "./${{ parameters.name }}"
         values:
+          workflowName: ${{ parameters.workflow_name }}
           repositories: ${{ parameters.repositories }}
+          cloudProviderOrExternalService: ${{ parameters.cloud_provider_or_external_service }}
+          initExtraArgs: ${{ parameters.init_extra_args }}
+          extraEnvs: ${{ parameters.extra_envs }}
+          roleArn: ${{ parameters.role_arn }}
+          azureTenant: ${{ parameters.azure_tenant }}
 
     - id: publish
       name: Abrindo Pull Request
       action: publish:github:pull-request
       input:
-        description: Add Atlantis Workflow ${{ parameters.name }}
+        description: Add Atlantis Workflow ${{ parameters.workflow_name }}
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
-        branchName: feat/adding-${{ parameters.name }}
-        title: "feat: create ${{ parameters.name }}"
-        targetPath: "workflow.d"
+        branchName: feat-${{ parameters.workflow_name }}
+        title: "feat: create ${{ parameters.workflow_name }} workflow"
+        targetPath: "workflow.d/${{ parameters.cloud_provider_or_external_service }}"
 
+  output:
+    links:
+      - title: Ir para pull request
+        url: ${{ steps.publish.output.remoteUrl }}
+        icon: github
