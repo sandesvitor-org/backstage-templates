@@ -24,6 +24,6 @@ workflow: ${{ values.workflow_name }}
 rolearn: {% if values.role_arn -%}
 {% endif %}
 
-{% if values.${{ values.azure_tenant }} -%}
+{% if values.azure_tenant -%}
 azure_tenant: stone
 {% endif %}
