@@ -12,9 +12,9 @@ spec:
 
   parameters:
     - title: "Dados do Workflow"
-      required: [workflow_name,repositories,cloudProviderOrExternalService,environment]
+      required: [workflowName,repositories,cloudProviderOrExternalService,environment]
       properties:
-        workflow_name:
+        workflowName:
           title: "Nome"
           type: string
           description: "Nome do Workflow"
@@ -79,24 +79,24 @@ spec:
       input:
         url: ./template
         values:
-          workflowName: ${{ parameters.workflow_name }}
+          workflow_name: "${{ parameters.cloudProviderOrExternalService }}-${{ parameters.workflowName }}"
           repositories: ${{ parameters.repositories }}
           environment: ${{ parameters.environment }}
-          cloudProviderOrExternalService: ${{ parameters.cloud_provider_or_external_service }}
-          initExtraArgs: ${{ parameters.init_extra_args }}
-          extraEnvs: ${{ parameters.extra_envs }}
-          roleArn: ${{ parameters.role_arn }}
-          azureTenant: ${{ parameters.azure_tenant }}
+          cloud_provider_or_external_service: ${{ parameters.cloudProviderOrExternalService }}
+          init_extra_args: ${{ parameters.initExtraArgs }}
+          extra_envs: ${{ parameters.extraEnvs }}
+          role_arn: ${{ parameters.roleArn }}
+          azure_tenant: ${{ parameters.azureTenant }}
 
     - id: publish
       name: Abrindo Pull Request
       action: publish:github:pull-request
       input:
-        description: Add Atlantis Workflow ${{ parameters.workflow_name }}
+        description: Add Atlantis Workflow ${{ parameters.workflowName }}
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
-        branchName: feat-${{ parameters.workflow_name }}
-        title: "feat: create ${{ parameters.workflow_name }} workflow"
-        targetPath: "workflow.d/${{ parameters.cloud_provider_or_external_service }}/${{ parameters.environment }}"
+        branchName: feat-${{ parameters.workflowName }}
+        title: "feat: create ${{ parameters.workflowName }} workflow"
+        targetPath: "workflow.d/${{ parameters.cloudProviderOrExternalService }}/${{ parameters.environment }}"
 
   output:
     links:
