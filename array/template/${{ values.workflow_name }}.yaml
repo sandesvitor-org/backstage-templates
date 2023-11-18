@@ -20,10 +20,10 @@ init_extra_args:
 
 workflow: ${{ values.workflow_name }}
 
-{% if values.role_arn -%}
-rolearn: {% if values.role_arn -%}
+{% if values.role_arn or (values.cloud_provider_or_external_service == "aws") -%}
+rolearn: ${{ values.role_arn }}
 {% endif %}
 
-{% if values.azure_tenant -%}
+{% if values.azure_tenant or (values.cloud_provider_or_external_service == "azure") -%}
 azure_tenant: stone
 {% endif %}
