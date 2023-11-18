@@ -12,7 +12,7 @@ spec:
 
   parameters:
     - title: "Dados do Workflow"
-      required: [workflow_name,repositories,cloudProviderOrExternalService]
+      required: [workflow_name,repositories,cloudProviderOrExternalService,environment]
       properties:
         workflow_name:
           title: "Nome"
@@ -43,6 +43,7 @@ spec:
             - AWS
             - Azure
             - MongoDB Atlas
+            - Opsgenie
             - Vault
         roleArn:
           title: Role ARN
@@ -77,10 +78,11 @@ spec:
       action: fetch:template
       input:
         url: ./template
-        targetPath: "./${{ parameters.name }}"
+        targetPath: "${{ parameters.workflow_name }}"
         values:
           workflowName: ${{ parameters.workflow_name }}
           repositories: ${{ parameters.repositories }}
+          environment: ${{ parameters.environment }}
           cloudProviderOrExternalService: ${{ parameters.cloud_provider_or_external_service }}
           initExtraArgs: ${{ parameters.init_extra_args }}
           extraEnvs: ${{ parameters.extra_envs }}
@@ -95,7 +97,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: feat-${{ parameters.workflow_name }}
         title: "feat: create ${{ parameters.workflow_name }} workflow"
-        targetPath: "workflow.d/${{ parameters.cloud_provider_or_external_service }}"
+        targetPath: "workflow.d/${{ parameters.cloud_provider_or_external_service }}/${{ parameters.environment }}"
 
   output:
     links:
