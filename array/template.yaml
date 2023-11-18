@@ -78,7 +78,6 @@ spec:
       action: fetch:template
       input:
         url: ./template
-        targetPath: "${{ parameters.workflow_name }}"
         values:
           workflowName: ${{ parameters.workflow_name }}
           repositories: ${{ parameters.repositories }}

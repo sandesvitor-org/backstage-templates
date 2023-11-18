@@ -9,21 +9,24 @@ envs:
   - name: ${{ env.name }}
     value: ${{ env.value }}
   {% endfor -%}
-{% endif %}
+{%- endif %}
 
 {% if values.init_extra_args -%}
 init_extra_args:
   {% for arg in values.init_extra_args -%}
   - ${{ arg }}
   {% endfor -%}
-{% endif %}
+{%- endif %}
 
 workflow: ${{ values.workflow_name }}
 
-{% if values.role_arn or (values.cloud_provider_or_external_service == "aws") -%}
+{% if values.role_arn -%}
 rolearn: ${{ values.role_arn }}
-{% endif %}
+{%- elseif values.cloud_provider_or_external_service == 'aws' -%}
+rolearn: ${{ values.role_arn }}
+{%- endif %}
 
-{% if values.azure_tenant or (values.cloud_provider_or_external_service == "azure") -%}
+{% if values.azure_tenant -%}
 azure_tenant: stone
-{% endif %}
+{%- elseif values.cloud_provider_or_external_service == 'azure' -%}
+{%- endif %}
