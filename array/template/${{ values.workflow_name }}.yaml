@@ -1,7 +1,9 @@
 repositories:
   {% for repository in values.repositories -%}
   - ${{ repository }}
-  {% endfor -%}
+  {%- endfor %}
+
+workflow: ${{ values.workflow_name }}
 
 {% if values.extra_envs -%}
 envs:
@@ -17,8 +19,6 @@ init_extra_args:
   - ${{ arg }}
   {% endfor -%}
 {%- endif %}
-
-workflow: ${{ values.workflow_name }}
 
 {% if values.role_arn -%}
 rolearn: ${{ values.role_arn }}
