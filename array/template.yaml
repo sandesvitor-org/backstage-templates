@@ -91,6 +91,7 @@ spec:
         url: ./template
         values:
           workflow_name: "${{ parameters.cloudProvider }}-${{ parameters.workflowName }}"
+          cloud_provider: ${{ parameters.cloudProvider }}
           repositories: ${{ parameters.repositories }}
           environment: ${{ parameters.environment }}
           init_extra_args: ${{ parameters.initExtraArgs }}

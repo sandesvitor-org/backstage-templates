@@ -22,8 +22,8 @@ envs:
 init_extra_args: [${{ args }}]
 {%- endif %}
 
-{% if values.role_arn -%}
+{% if (values.role_arn != "") and (values.cloud_provider == "aws") -%}
 rolearn: ${{ values.role_arn }}
-{% elif values.azure_tenant -%}
+{% if (values.azure_tenant != "") and (values.cloud_provider == "azure") -%}
 azure_tenant: ${{ values.azure_tenant }}
 {%- endif %}
