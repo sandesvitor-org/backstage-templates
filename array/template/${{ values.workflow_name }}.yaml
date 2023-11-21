@@ -20,6 +20,7 @@ envs:
   {% set args = args.concat([arg]) -%}
 {% endfor -%}
 init_extra_args: ${{ args }}
+{%- endif %}
 
 {% if values.role_arn -%}
 rolearn: ${{ values.role_arn }}
