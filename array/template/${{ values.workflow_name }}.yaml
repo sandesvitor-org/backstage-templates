@@ -22,8 +22,6 @@ init_extra_args:
 
 {% if values.role_arn -%}
 rolearn: ${{ values.role_arn }}
-{%- endif %}
-
-{% if values.azure_tenant -%}
-azure_tenant: stone
+{% elif values.azure_tenant -%}
+azure_tenant: ${{ values.azure_tenant }}
 {%- endif %}
