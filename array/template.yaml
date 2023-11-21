@@ -38,43 +38,6 @@ spec:
             - Production
             - Sandbox
             - Staging
-        cloudProvider:
-          title: Cloud Provider
-          type: object
-          description: "Diretório referente ao cloud provider Azure ou AWS"
-          properties:
-            selectedCloudProvider:
-              title: "Selecione o Cloud Provider"
-              type: string
-              enum: ["aws","azure"]
-              default: "aws"
-          required:
-            - selectedCloudProvider
-          dependencies:
-            selectedCloudProvider:
-              oneOf:
-                - properties:
-                    selectedCloudProvider:
-                      enum:
-                        - "aws"
-                    roleArn:
-                      title: Role ARN
-                      type: string
-                      description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
-                      pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
-                    required:
-                      - roleArn
-                - properties:
-                    selectedCloudProvider:
-                      enum:
-                        - "azure"
-                    azureTenant:
-                      title: Azure Tenant
-                      type: string
-                      description: Tenant da Azure para logar nas subscriptions
-                      enum: ["stone"]
-                  required:
-                    - azureTenant
         initExtraArgs:
           title: Init Extra Args
           type: array
@@ -92,6 +55,32 @@ spec:
                 type: string
               values:
                 type: string
+        cloudProvider:
+            title: "Selecione o Cloud Provider"
+            type: string
+            enum: ["aws","azure"]
+            default: "aws"
+      dependencies:
+        cloudProvider:
+          oneOf:
+            - properties:
+                cloudProvider:
+                  enum:
+                    - "aws"
+                roleArn:
+                  title: Role ARN
+                  type: string
+                  description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
+                  pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
+            - properties:
+                cloudProvider:
+                  enum:
+                    - "azure"
+                azureTenant:
+                  title: Azure Tenant
+                  type: string
+                  description: Tenant da Azure para logar nas subscriptions
+                  enum: ["stone"]
 
   steps:
     - id: fetch-base
