@@ -17,8 +17,6 @@ spec:
         - repositories
         - environment
         - cloudProvider
-        - roleArn
-        - azureTenant
       properties:
         workflowName:
           title: "Nome"
@@ -65,7 +63,8 @@ spec:
       dependencies:
         cloudProvider:
           oneOf:
-            - properties:
+            - required: [roleArn]
+              properties:
                 cloudProvider:
                   enum: ["aws"]
                 roleArn:
@@ -73,7 +72,8 @@ spec:
                   type: string
                   description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
                   pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
-            - properties:
+            - required: [azureTenant]
+              properties:
                 cloudProvider:
                   enum: ["azure"]
                 azureTenant:
