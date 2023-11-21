@@ -2,7 +2,7 @@
 {% for repository in values.repositories -%}
   {% set repositories = repositories.concat([repository]) -%}
 {% endfor -%}
-repositories: ${{ repositories }}
+repositories: [${{ repositories }}]
 
 workflow: ${{ values.workflow_name }}
 
@@ -19,7 +19,7 @@ envs:
 {% for arg in values.init_extra_args -%}
   {% set args = args.concat([arg]) -%}
 {% endfor -%}
-init_extra_args: ${{ args }}
+init_extra_args: [${{ args }}]
 {%- endif %}
 
 {% if values.role_arn -%}

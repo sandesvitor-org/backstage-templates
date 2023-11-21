@@ -53,7 +53,7 @@ spec:
             properties:
               name:
                 type: string
-              values:
+              value:
                 type: string
         cloudProvider:
             title: "Selecione o Cloud Provider"
