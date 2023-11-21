@@ -16,7 +16,7 @@ spec:
         - workflowName
         - repositories
         - environment
-        - selectedCloudProvider
+        - cloudProvider
       properties:
         workflowName:
           title: "Nome"
@@ -89,13 +89,13 @@ spec:
       input:
         url: ./template
         values:
-          workflow_name: "${{ parameters.cloudProvider.selectedCloudProvider }}-${{ parameters.workflowName }}"
+          workflow_name: "${{ parameters.cloudProvider }}-${{ parameters.workflowName }}"
           repositories: ${{ parameters.repositories }}
           environment: ${{ parameters.environment }}
           init_extra_args: ${{ parameters.initExtraArgs }}
           extra_envs: ${{ parameters.extraEnvs }}
-          role_arn: ${{ parameters.cloudProvider.roleArn }}
-          azure_tenant: ${{ parameters.cloudProvider.azureTenant }}
+          role_arn: ${{ parameters.roleArn }}
+          azure_tenant: ${{ parameters.azureTenant }}
 
     - id: publish
       name: Abrindo Pull Request
@@ -107,7 +107,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: feat-${{ parameters.workflowName }}
         title: "feat: create ${{ parameters.workflowName }} workflow"
-        targetPath: "workflow.d/${{ parameters.cloudProvider.selectedCloudProvider }}/${{ parameters.environment }}"
+        targetPath: "workflow.d/${{ parameters.cloudProvider }}/${{ parameters.environment }}"
 
   output:
     links:
