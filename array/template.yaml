@@ -80,6 +80,7 @@ spec:
                   title: Azure Tenant
                   type: string
                   description: Tenant da Azure para logar nas subscriptions
+                  default: stone
                   enum: ["stone"]
 
   steps:
