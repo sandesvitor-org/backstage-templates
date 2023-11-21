@@ -50,23 +50,23 @@ spec:
             selectCloudProvider:
               oneOf:
                 - properties:
-                  selectCloudProvider:
-                    enum:
-                      - "aws"
-                  roleArn:
-                    title: Role ARN
-                    type: string
-                    description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
-                    pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
+                    selectCloudProvider:
+                      enum:
+                        - "aws"
+                    roleArn:
+                      title: Role ARN
+                      type: string
+                      description: AWS Role ARN para o runner do Atlantis assumir durante a execução (caso precise fazer o deploy em uma conta da AWS)
+                      pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
                 - properties:
-                  selectCloudProvider:
-                    enum:
-                      - "azure"
-                  azureTenant:
-                    title: Azure Tenant
-                    type: string
-                    description: Tenant da Azure para logar nas subscriptions
-                    enum: ["stone"]
+                    selectCloudProvider:
+                      enum:
+                        - "azure"
+                    azureTenant:
+                      title: Azure Tenant
+                      type: string
+                      description: Tenant da Azure para logar nas subscriptions
+                      enum: ["stone"]
         initExtraArgs:
           title: Init Extra Args
           type: array
