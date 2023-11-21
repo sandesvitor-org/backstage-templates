@@ -65,8 +65,8 @@ spec:
           oneOf:
             - properties:
                 cloudProvider:
-                  enum:
-                    - "aws"
+                  enum: ["aws"]
+                  required: [roleArn]
                 roleArn:
                   title: Role ARN
                   type: string
@@ -74,8 +74,8 @@ spec:
                   pattern: '^arn:aws:iam::\d{12}:role\/[a-zA-Z-]+$'
             - properties:
                 cloudProvider:
-                  enum:
-                    - "azure"
+                  enum: ["azure"]
+                  required: [azureTenant]
                 azureTenant:
                   title: Azure Tenant
                   type: string
