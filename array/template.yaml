@@ -47,7 +47,7 @@ spec:
           required:
             - selectCloudProvider
           dependencies:
-            createSystem:
+            selectCloudProvider:
               oneOf:
                 - properties:
                   selectCloudProvider:
