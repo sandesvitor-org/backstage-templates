@@ -17,6 +17,8 @@ spec:
         - repositories
         - environment
         - cloudProvider
+        - roleArn
+        - azureTenant
       properties:
         workflowName:
           title: "Nome"
@@ -66,7 +68,6 @@ spec:
             - properties:
                 cloudProvider:
                   enum: ["aws"]
-                  required: [roleArn]
                 roleArn:
                   title: Role ARN
                   type: string
@@ -75,7 +76,6 @@ spec:
             - properties:
                 cloudProvider:
                   enum: ["azure"]
-                  required: [azureTenant]
                 azureTenant:
                   title: Azure Tenant
                   type: string
