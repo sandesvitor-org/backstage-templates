@@ -21,7 +21,6 @@ envs:
 {% endfor -%}
 init_extra_args: ${{ args }}
 
-
 {% if values.role_arn -%}
 rolearn: ${{ values.role_arn }}
 {% elif values.azure_tenant -%}
