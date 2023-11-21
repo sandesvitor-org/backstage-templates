@@ -12,7 +12,11 @@ spec:
 
   parameters:
     - title: "Dados do Workflow"
-      required: [workflowName,repositories,cloudProvider,environment]
+      required:
+        - workflowName
+        - repositories
+        - environment
+        - selectedCloudProvider
       properties:
         workflowName:
           title: "Nome"
@@ -39,18 +43,18 @@ spec:
           type: object
           description: "Diretório referente ao cloud provider Azure ou AWS"
           properties:
-            selectCloudProvider:
+            selectedCloudProvider:
               title: "Selecione o Cloud Provider"
               type: string
               enum: ["aws","azure"]
               default: "aws"
           required:
-            - selectCloudProvider
+            - selectedCloudProvider
           dependencies:
-            selectCloudProvider:
+            selectedCloudProvider:
               oneOf:
                 - properties:
-                    selectCloudProvider:
+                    selectedCloudProvider:
                       enum:
                         - "aws"
                     roleArn:
@@ -61,7 +65,7 @@ spec:
                     required:
                       - roleArn
                 - properties:
-                    selectCloudProvider:
+                    selectedCloudProvider:
                       enum:
                         - "azure"
                     azureTenant:
@@ -96,7 +100,7 @@ spec:
       input:
         url: ./template
         values:
-          workflow_name: "${{ parameters.cloudProvider.selectCloudProvider }}-${{ parameters.workflowName }}"
+          workflow_name: "${{ parameters.cloudProvider.selectedCloudProvider }}-${{ parameters.workflowName }}"
           repositories: ${{ parameters.repositories }}
           environment: ${{ parameters.environment }}
           init_extra_args: ${{ parameters.initExtraArgs }}
@@ -114,7 +118,7 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: feat-${{ parameters.workflowName }}
         title: "feat: create ${{ parameters.workflowName }} workflow"
-        targetPath: "workflow.d/${{ parameters.cloudProvider }}/${{ parameters.environment }}"
+        targetPath: "workflow.d/${{ parameters.cloudProvider.selectedCloudProvider }}/${{ parameters.environment }}"
 
   output:
     links:
