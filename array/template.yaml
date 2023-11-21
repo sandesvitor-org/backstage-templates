@@ -12,7 +12,7 @@ spec:
 
   parameters:
     - title: "Dados do Workflow"
-      required: [workflowName,repositories,cloudProviderOrExternalService,environment]
+      required: [workflowName,repositories,cloudProvider,environment]
       properties:
         workflowName:
           title: "Nome"
