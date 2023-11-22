@@ -25,6 +25,11 @@ spec:
         repositories:
           title: Repositório(s)
           type: array
+          minItems: 0
+          ui:options:
+            addable: true
+            orderable: true
+            removable: true
           description: Repositório(s) autorizado(s) a usar o workflow (precisa estar no formato 'owner/repositóry')
           items:
             type: string
