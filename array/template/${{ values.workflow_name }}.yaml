@@ -1,8 +1,10 @@
+{% if values.repositories -%}
 {% set repositories = [] -%}
 {% for repository in values.repositories -%}
   {% set repositories = repositories.concat(['"' ~ repository ~ '"']) -%}
 {% endfor -%}
 repositories: [${{ repositories }}]
+{%- endif %}
 
 workflow: ${{ values.workflow_name }}
 
