@@ -25,10 +25,9 @@ spec:
         repositories:
           title: Repositório(s)
           type: array
-          minItems: 0
+          minItems: 1
           ui:options:
             addable: true
-            orderable: true
             removable: true
           description: Repositório(s) autorizado(s) a usar o workflow (precisa estar no formato 'owner/repositóry')
           items:
@@ -95,7 +94,7 @@ spec:
       input:
         url: ./template
         values:
-          workflow_name: "${{ parameters.cloudProvider }}-${{ parameters.workflowName }}"
+          workflow_name: ${{ parameters.workflowName }}
           cloud_provider: ${{ parameters.cloudProvider }}
           repositories: ${{ parameters.repositories }}
           environment: ${{ parameters.environment }}
@@ -110,7 +109,7 @@ spec:
       input:
         description: |
           ## Descrição
-          Adiciona o Workflow ${{ parameters.workflowName }}
+          Adiciona o Workflow ${{ parameters.workflowName }} para o ambiente de ${{ parameters.environment }}
         repoUrl: github.com?owner=sandesvitor-org&repo=infra-mock
         branchName: feat-${{ parameters.workflowName }}
         title: "feat: create ${{ parameters.workflowName }} workflow"
