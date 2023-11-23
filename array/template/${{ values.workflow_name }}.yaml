@@ -4,7 +4,6 @@
 {% endfor -%}
 repositories: [${{ repositories }}]
 
-{% set workflow_suffix = "" %}
 {% if values.environment == "production" -%}
 {% set workflow_suffix = prd %}
 {% elif values.environment == "sandbox" -%}
