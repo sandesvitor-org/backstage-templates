@@ -5,14 +5,13 @@
 repositories: [${{ repositories }}]
 
 {% if values.environment == "production" -%}
-{% set workflow_suffix = prd %}
+workflow: "${{ values.cloud_provider }}-${{ values.workflow_name }}-prd"
 {% elif values.environment == "sandbox" -%}
-{% set workflow_suffix = sdx %}
+workflow: "${{ values.cloud_provider }}-${{ values.workflow_name }}-sdx"
 {% elif values.environment == "staging" -%}
-{% set workflow_suffix = stg %}
+workflow: "${{ values.cloud_provider }}-${{ values.workflow_name }}-stg"
 {%- endif %}
 
-workflow: "${{ values.cloud_provider }}-${{ values.workflow_name }}-${{ workflow_suffix }}"
 
 {% if values.extra_envs -%}
 envs:
