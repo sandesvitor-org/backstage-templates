@@ -9,3 +9,4 @@ spec:
     - ./pokemon/Template.yaml
     - ./array/template.yaml
     - ./create-resources/s3/template.yaml
+    - ./karavela/create-application/template.yaml

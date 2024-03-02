@@ -1,0 +1,38 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: teste
+  title: POC - Create Karavela API
+  description: xpto
+spec:
+  owner: backstage
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: Form
+      required: [pokemon]
+      properties:
+        email:
+          title: Email
+          type: string
+          description: ""
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: change
+      name: Create change
+      action: stone:change:create
+      input:
+        requester: ${{ parameters.email }}
+        owner: backstage
+        needsApproval: true
+        pullRequests: ['backstage-pull-1', 'backstage-pull-2']
+
+  # output:
+  #   links:
+  #     - title: Pokemon
+  #       url: ${{ steps.pokemon.output.pokemonUrl }}
+
