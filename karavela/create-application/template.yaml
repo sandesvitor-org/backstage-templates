@@ -29,8 +29,9 @@ spec:
         requester: ${{ parameters.email }}
         owner: backstage
         needsApproval: true
-        pullRequests: ['backstage-pull-1', 'backstage-pull-2']
-
+        pullRequests:
+          - url: backstage-pull-request-1
+          - url: backstage-pull-request-2
   # output:
   #   links:
   #     - title: Pokemon
