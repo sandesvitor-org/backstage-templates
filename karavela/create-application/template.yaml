@@ -13,7 +13,7 @@ spec:
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Form
-      required: [pokemon]
+      required: [email]
       properties:
         email:
           title: Email
