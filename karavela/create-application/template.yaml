@@ -67,10 +67,6 @@ spec:
         offer: create-karavela-application
         email: ${{ parameters.email }}"
         pullRequests:
-          - url: dadad
-            target_path: "infra/${{ parameters.app_name }}"
-          - url: dadad
-            target_path: "applications/${{ parameters.app_name }}"
           - url: ${{ steps.infra.output.remoteUrl }}
             target_path: "infra/${{ parameters.app_name }}"
           - url: ${{ steps.app.output.remoteUrl }}
