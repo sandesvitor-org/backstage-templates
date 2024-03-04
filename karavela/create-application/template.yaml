@@ -22,38 +22,38 @@ spec:
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: fetch-base-infra
-      name: Fetch Base
-      action: fetch:template
-      input:
-        url: ./template-infra
+    # - id: fetch-base-infra
+    #   name: Fetch Base
+    #   action: fetch:template
+    #   input:
+    #     url: ./template-infra
 
-    - id: infra
-      name: Abrindo Pull Request de Infra
-      action: publish:github:pull-request
-      input:
-        description: Add Infra
-        repoUrl: github.com?owner=sandesvitor-org&repo=autoservice
-        title: "feat: create ${{ parameters.app_name }}"
-        targetPath: "infra/${{ parameters.app_name }}"
-        branchName: "feat/add-${{ parameters.app_name }}"
+    # - id: infra
+    #   name: Abrindo Pull Request de Infra
+    #   action: publish:github:pull-request
+    #   input:
+    #     description: Add Infra
+    #     repoUrl: github.com?owner=sandesvitor-org&repo=autoservice
+    #     title: "feat: create ${{ parameters.app_name }}"
+    #     targetPath: "infra/${{ parameters.app_name }}"
+    #     branchName: "feat/add-${{ parameters.app_name }}"
 
 
-    - id: fetch-base-app
-      name: Fetch Base
-      action: fetch:template
-      input:
-        url: ./template-app
+    # - id: fetch-base-app
+    #   name: Fetch Base
+    #   action: fetch:template
+    #   input:
+    #     url: ./template-app
 
-    - id: app
-      name: Abrindo Pull Request de App
-      action: publish:github:pull-request
-      input:
-        description: Add App
-        repoUrl: github.com?owner=sandesvitor-org&repo=application
-        title: "feat: create ${{ parameters.app_name }}"
-        targetPath: "applications/${{ parameters.app_name }}"
-        branchName: "feat/add-${{ parameters.app_name }}"
+    # - id: app
+    #   name: Abrindo Pull Request de App
+    #   action: publish:github:pull-request
+    #   input:
+    #     description: Add App
+    #     repoUrl: github.com?owner=sandesvitor-org&repo=application
+    #     title: "feat: create ${{ parameters.app_name }}"
+    #     targetPath: "applications/${{ parameters.app_name }}"
+    #     branchName: "feat/add-${{ parameters.app_name }}"
 
 
     - id: change
@@ -62,16 +62,20 @@ spec:
       input:
         offer: create-karavela-application
         pullRequests:
-          - url: ${{ steps.infra.output.remoteUrl }}
+          - url: dadad
             target_path: "infra/${{ parameters.app_name }}"
-          - url: ${{ steps.app.output.remoteUrl }}
+          - url: dadad
             target_path: "applications/${{ parameters.app_name }}"
+          # - url: ${{ steps.infra.output.remoteUrl }}
+          #   target_path: "infra/${{ parameters.app_name }}"
+          # - url: ${{ steps.app.output.remoteUrl }}
+          #   target_path: "applications/${{ parameters.app_name }}"
 
-  output:
-    links:
-      - title: Ir para pull request
-        url: ${{ steps.infra.output.remoteUrl }}
-        icon: github
-      - title: Ir para pull request
-        url: ${{ steps.app.output.remoteUrl }}
-        icon: github
+  # output:
+  #   links:
+  #     - title: Ir para pull request
+  #       url: ${{ steps.infra.output.remoteUrl }}
+  #       icon: github
+  #     - title: Ir para pull request
+  #       url: ${{ steps.app.output.remoteUrl }}
+  #       icon: github
