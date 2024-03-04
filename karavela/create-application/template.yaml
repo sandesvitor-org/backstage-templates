@@ -13,27 +13,61 @@ spec:
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Form
-      required: [email]
+      required: [app_name]
       properties:
-        email:
-          title: Email
+        app_name:
+          title: App Name
           type: string
           description: ""
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
-    - id: change
-      name: Create change
-      action: stone:change:create
+    - id: fetch-base-infra
+      name: Fetch Base
+      action: fetch:template
       input:
-        requester: ${{ parameters.email }}
-        owner: backstage
-        needsApproval: true
-        pullRequests:
-          - url: backstage-pull-request-1
-          - url: backstage-pull-request-2
-  # output:
-  #   links:
-  #     - title: Pokemon
-  #       url: ${{ steps.pokemon.output.pokemonUrl }}
+        url: ./template-infra
 
+    - id: infra
+      name: Abrindo Pull Request de Infra
+      action: publish:github:pull-request
+      input:
+        description: Add Infra
+        repoUrl: github.com?owner=sandesvitor-org&repo=autoservice
+        title: "feat: create ${{ parameters.app_name }}"
+        targetPath: "infra/${{ parameters.app_name }}"
+
+    - id: fetch-base-app
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template-infra
+
+    - id: app
+      name: Abrindo Pull Request de App
+      action: publish:github:pull-request
+      input:
+        description: Add App
+        repoUrl: github.com?owner=sandesvitor-org&repo=application
+        title: "feat: create ${{ parameters.app_name }}"
+        targetPath: "applications/${{ parameters.app_name }}"
+
+    # - id: change
+    #   name: Create change
+    #   action: stone:change:create
+    #   input:
+    #     requester: ${{ parameters.email }}
+    #     owner: backstage
+    #     needsApproval: true
+    #     pullRequests:
+    #       - url: ${{ steps.infra.output.remoteUrl }}
+    #       - url: ${{ steps.app.output.remoteUrl }}
+
+  output:
+    links:
+      - title: Ir para pull request
+        url: ${{ steps.infra.output.remoteUrl }}
+        icon: github
+      - title: Ir para pull request
+        url: ${{ steps.app.output.remoteUrl }}
+        icon: github
