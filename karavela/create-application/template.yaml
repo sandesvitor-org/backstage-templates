@@ -56,16 +56,16 @@ spec:
         branchName: "feat/add-${{ parameters.app_name }}"
 
 
-    # - id: change
-    #   name: Create change
-    #   action: stone:change:create
-    #   input:
-    #     requester: ${{ parameters.email }}
-    #     owner: backstage
-    #     needsApproval: true
-    #     pullRequests:
-    #       - url: ${{ steps.infra.output.remoteUrl }}
-    #       - url: ${{ steps.app.output.remoteUrl }}
+    - id: change
+      name: Create change
+      action: stone:change:create
+      input:
+        offer: create-karavela-application
+        pullRequests:
+          - url: ${{ steps.infra.output.remoteUrl }}
+            target_path: "infra/${{ parameters.app_name }}"
+          - url: ${{ steps.app.output.remoteUrl }}
+            target_path: "applications/${{ parameters.app_name }}"
 
   output:
     links:
