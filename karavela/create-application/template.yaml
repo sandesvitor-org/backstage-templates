@@ -19,6 +19,10 @@ spec:
           title: App Name
           type: string
           description: ""
+        email:
+          title: User Email
+          type: string
+          description: ""
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
@@ -61,6 +65,7 @@ spec:
       action: stone:change:create
       input:
         offer: create-karavela-application
+        email: ${{ parameters.email }}"
         pullRequests:
           - url: dadad
             target_path: "infra/${{ parameters.app_name }}"
