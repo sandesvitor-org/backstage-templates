@@ -36,6 +36,8 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=autoservice
         title: "feat: create ${{ parameters.app_name }}"
         targetPath: "infra/${{ parameters.app_name }}"
+        branchName: "feat/add-${{ parameters.app_name }}"
+
 
     - id: fetch-base-app
       name: Fetch Base
@@ -51,6 +53,8 @@ spec:
         repoUrl: github.com?owner=sandesvitor-org&repo=application
         title: "feat: create ${{ parameters.app_name }}"
         targetPath: "applications/${{ parameters.app_name }}"
+        branchName: "feat/add-${{ parameters.app_name }}"
+
 
     # - id: change
     #   name: Create change
