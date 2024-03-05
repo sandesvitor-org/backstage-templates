@@ -74,9 +74,12 @@ spec:
 
   output:
     links:
-      - title: Ir para pull request
+      - title: "Página de Status da Change ${{ steps.change.output.changeId }}"
+        url: ${{ steps.change.output.changeId }}
+        icon: backstage
+      - title: Ir para pull request de Infra
         url: ${{ steps.infra.output.remoteUrl }}
         icon: github
-      - title: Ir para pull request
+      - title: Ir para pull request de Aplicação
         url: ${{ steps.app.output.remoteUrl }}
         icon: github
