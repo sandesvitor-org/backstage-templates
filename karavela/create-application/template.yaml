@@ -75,10 +75,10 @@ spec:
   output:
     links:
       - title: "Página de Status da Change ${{ steps.change.output.changeId }}"
-        url: ${{ steps.change.output.changeId }}
-      - title: Ir para pull request de Infra
-        url: ${{ steps.infra.output.remoteUrl }}
-        icon: github
-      - title: Ir para pull request de Aplicação
-        url: ${{ steps.app.output.remoteUrl }}
-        icon: github
+        url: "http://localhost:3000/karavela-status/${{ steps.change.output.changeId }}"
+      # - title: Ir para pull request de Infra
+      #   url: ${{ steps.infra.output.remoteUrl }}
+      #   icon: github
+      # - title: Ir para pull request de Aplicação
+      #   url: ${{ steps.app.output.remoteUrl }}
+      #   icon: github
