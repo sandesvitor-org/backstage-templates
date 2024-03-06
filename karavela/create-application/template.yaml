@@ -72,8 +72,8 @@ spec:
       name: Create change
       action: stone:change:create
       input:
-        offer: ${{ parameters.offer }}
-        email: ${{ parameters.email }}"
+        offer: "${{ parameters.offer }}"
+        email: "${{ parameters.email }}"
         pullRequests:
           - url: ${{ steps.infra.output.remoteUrl }}
             target_path: "infra/${{ parameters.app_name }}"
