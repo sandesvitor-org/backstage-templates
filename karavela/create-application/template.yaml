@@ -13,7 +13,7 @@ spec:
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Form
-      required: [app_name]
+      required: [app_name, offer, email]
       properties:
         app_name:
           title: App Name
@@ -23,6 +23,14 @@ spec:
           title: User Email
           type: string
           description: ""
+        offer:
+          title: Oferta
+          type: string
+          description: Nome do oferta
+          enum:
+            - create-infra-s3
+            - create-infra-vpc
+            - create-karavela-application
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
@@ -64,7 +72,7 @@ spec:
       name: Create change
       action: stone:change:create
       input:
-        offer: create-karavela-application
+        offer: ${{ parameters.offer }}
         email: ${{ parameters.email }}"
         pullRequests:
           - url: ${{ steps.infra.output.remoteUrl }}
