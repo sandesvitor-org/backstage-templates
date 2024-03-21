@@ -1,0 +1,30 @@
+---
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+# some metadata about the template itself
+metadata:
+  name: split
+  title: Split Teste
+  description: Estudo de backstage templates
+spec:
+  owner: backstage
+  type: service
+
+  # these are the steps which are rendered in the frontend with the form input
+  parameters:
+    - title: test
+      required: [test]
+      properties:
+        test:
+          title: Uma string qualquer
+          type: string
+          description: "EX: pikachu =)"
+
+  # here's the steps that are executed in series in the scaffolder backend
+  steps:
+    - id: teste
+      name: Split String
+      action: debug:log
+      input:
+        message: ${{ parameters.test.split(':')[1] }}
+
