@@ -26,5 +26,5 @@ spec:
       name: Split String
       action: debug:log
       input:
-        message: ${{ parameters.test.split(':')[1] }}
+        message: ${{ parameters.test.split('/')[1] }}
 
