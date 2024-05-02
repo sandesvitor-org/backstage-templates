@@ -3,9 +3,14 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 # some metadata about the template itself
 metadata:
-  name: teste
-  title: POC - Create Karavela Mensageria
-  description: xpto
+  name: mensageria
+  namespace: stone
+  title: "[POC] Mensageria"
+  description: Cria um bucket s3 como autosserviço
+  tags:
+    - aws
+    - infrastructure
+    - storage
 spec:
   owner: backstage
   type: service
