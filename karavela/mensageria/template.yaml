@@ -40,6 +40,6 @@ spec:
           {
             "url": "http://mock-external-api:8080/test",
             "payload": {
-              "message": ${{ parameters.message }}
+              "message": "${{ parameters.message }}"
             }
           }
