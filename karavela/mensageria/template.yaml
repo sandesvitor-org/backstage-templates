@@ -26,15 +26,15 @@ spec:
       name: Criar Order
       action: karavela:core:create-order
 
-    - id: mensageria
-      name: Criando Recursos - Mock
-      action: karavela:core:platform-api
-      input:
-        orderID: Add Infra
-        input: |
-          {
-            "url": "http://mock-external-api:8080/test",
-            "payload": {
-              "message": ${{ parameters.message }}
-            }
-          }
+    # - id: mensageria
+    #   name: Criando Recursos - Mock
+    #   action: karavela:core:platform-api
+    #   input:
+    #     orderID: Add Infra
+    #     input: |
+    #       {
+    #         "url": "http://mock-external-api:8080/test",
+    #         "payload": {
+    #           "message": ${{ parameters.message }}
+    #         }
+    #       }
