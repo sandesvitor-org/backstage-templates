@@ -18,11 +18,15 @@ spec:
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Form
-      required: [message]
+      required: [message, stepsToConlusion]
       properties:
         message:
           title: Message
           type: string
+          description: ""
+        stepsToConlusion:
+          title: stepsToConlusion
+          type: number
           description: ""
 
   # here's the steps that are executed in series in the scaffolder backend
@@ -30,6 +34,8 @@ spec:
     - id: order
       name: Criar Order
       action: karavela:core:create-order
+      input:
+        stepsToConlusion: ${{ parameters.stepsToConlusion }}
 
     - id: mensageria
       name: Criando Recursos de Mensageria - Mock
