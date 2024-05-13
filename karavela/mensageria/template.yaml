@@ -18,15 +18,11 @@ spec:
   # these are the steps which are rendered in the frontend with the form input
   parameters:
     - title: Form
-      required: [message, expectedStepCount]
+      required: [message]
       properties:
         message:
           title: Message
           type: string
-          description: ""
-        expectedStepCount:
-          title: expectedStepCount
-          type: number
           description: ""
 
   # here's the steps that are executed in series in the scaffolder backend
@@ -35,16 +31,15 @@ spec:
       name: Criar Order
       action: karavela:core:create-order
       input:
-        expectedStepCount: ${{ parameters.expectedStepCount }}
+        expectedStepCount: 1
 
     - id: mensageria
       name: Criando Recursos de Mensageria - Mock
-      action: karavela:core:platform-api
+      action: karavela:core:connector:platform-api
       input:
         orderID: ${{ steps.order.output.orderID }}
-        url: "http://mock-external-api:8080/test"
+        url: "http://localhost:8080/test"
         payload: |
           {
             "message": "${{ parameters.message }}"
           }
- 
