@@ -1,0 +1,17 @@
+provider: 'confluent'
+requester_email: ${{parameters.requester_email}}
+organization: ${{parameters.organization}}
+tribe: ${{parameters.tribe}}
+team: ${{parameters.team}}
+tags: ${{parameters.tags}}
+environment: ${{parameters.environment}}
+availability_zone: ${{parameters.availability_zone}}
+confluent_environment: ${{parameters.confluent_environment}}
+cloud_provider: ${{parameters.cloud_provider}}
+region: ${{parameters.region}}
+cluster_type: ${{parameters.cluster_type}}
+shared_cluster: ${{parameters.shared_cluster}}
+dedicated_cku: ${{parameters.dedicated_cku}}
+private_network: ${{parameters.private_network}}
+network_id: ${{parameters.network_id}}
+kafka_config: ${{parameters.kafka_config}}

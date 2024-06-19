@@ -3,10 +3,10 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 # some metadata about the template itself
 metadata:
-  name: mensageria
+  name: api-mock-platform
   namespace: stone
-  title: "[POC] Mensageria"
-  description: Cria um bucket s3 como autosserviço
+  title: "API MOCK Platform"
+  description: Cria um recurso qualquer
   tags:
     - aws
     - infrastructure
@@ -24,6 +24,18 @@ spec:
           title: Message
           type: string
           description: ""
+        tags:
+          title: Tags
+          type: object
+          description: Tags do cluster
+          properties:
+            cost-center:
+              title: Centro de Custo
+              type: string
+              description: Centro de Custo ao qual o cluster pertence
+              ui:help: 'Preencha com o centro de custo ao qual o cluster pertence (ex: 820140020 - ENGINEERING PLATFORMS - FOUNDATION PLATFORM - ENGENHARIA)'
+              enumNames:
+                - 800060020 
 
   # here's the steps that are executed in series in the scaffolder backend
   steps:
@@ -31,6 +43,7 @@ spec:
       name: Criar Order
       action: karavela:core:create-order
       input:
+        requester: "sandao@sangue.bom"
         expectedStepCount: 1
 
     - id: mensageria
@@ -39,7 +52,6 @@ spec:
       input:
         orderID: ${{ steps.order.output.orderID }}
         url: "http://localhost:8080/test"
-        payload: |
-          {
-            "message": "${{ parameters.message }}"
-          }
+        body:
+          message: "${{ parameters.message }}"
+          tags: "${{ parameters.tags }}"
