@@ -227,6 +227,7 @@ spec:
       name: Criar Order
       action: karavela:core:create-order
       input:
+        offer: "nice-demais-mano"
         requester: "sandao@sangue.bom"
         expectedStepCount: 1
 
