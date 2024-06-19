@@ -235,7 +235,7 @@ spec:
       name: Criando Recursos de Mensageria - Mock
       action: karavela:core:connector:platform-api
       input:
-        orderID: ${{ steps.order.output.orderID }}
+        orderId: ${{ steps.order.output.orderId }}
         url: "http://localhost:8080/test"
         body:
           message: "${{ parameters.message }}"
